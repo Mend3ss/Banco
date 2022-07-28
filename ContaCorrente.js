@@ -6,41 +6,54 @@ export class ContaCorrente {
 
     #saldo = 0;
     #senha;
+    #esqueceuSenha;
 
-    constructor(cliente, agencia, senha){
+    constructor(cliente, agencia, senha, esqueceuSenha){
         this.cliente = cliente
         this.agencia = agencia
         this.senha = senha
+        this.esqueceuSenha = esqueceuSenha
     }
 
     //Verificando senha
 
-    autentica(senha) {
+    autentica(senha,esqueceuSenha) {
         if (this.senha == senha) {
-            console.log(`Senha correta \n Ola`, this.cliente )
+            console.log(`Senha correta! \n Ola`, this.cliente )
             this.#senha = true
-        } else {
-            console.log("Senha incorreta \n")
+        } else if(this.senha != senha) {
+            console.log("Senha incorreta, verificando senha secundaria... \n")
             this.#senha = false
+
+    //Senha Secundaria
+
+        } if(this.#senha == false && this.esqueceuSenha == esqueceuSenha){
+            console.log(`Senha secundaria correta! Acessando conta...  \n Ola`, this.cliente)
+            this.#esqueceuSenha = true
+        } else if(this.#senha == true) {
+            console.log("Senha correta!")
         }
     }
 
+
     //Deposito
-    depositar(valor, senha) {
-        if (valor > 0 && this.#senha == true) {
+    depositar(valor, senha, esqueceuSenha) {
+        if (valor > 0 && this.#senha == true || this.#esqueceuSenha == true) {
             console.log("Fazendo deposito de: ", valor)
             this.#saldo += valor;
             console.log("Deposito realizado com sucesso, voce possui", this.#saldo, "\n")
 
-            //Privando senha
+            //Privando senhas
             this.senha = this.#senha
+            this.esqueceuSenha = this.#esqueceuSenha
 
             //Condição: senha incorreta
         } else if(this.#senha == false){
             console.log("Senha incorreta")
             
-            //Privando senha
+            //Privando senhas
             this.senha = this.#senha
+            this.esqueceuSenha = this.#esqueceuSenha
         }
         
         //Condição: Deposito negativo
@@ -56,8 +69,8 @@ export class ContaCorrente {
     }
 
     //Saque
-    sacar(valor, senha) {
-        if (this.#saldo >= valor && this.#senha == true) {
+    sacar(valor, senha, esqueceuSenha) {
+        if (this.#saldo >= valor && this.#senha == true || this.#esqueceuSenha == true) {
             console.log("Verificando senha...")
             console.log("saque permitido... Sacando", valor)
             this.#saldo -= valor;
