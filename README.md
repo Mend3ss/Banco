@@ -1,7 +1,11 @@
-# Bank
-In this study project I made a bank system. With: <br>
-Customer <br>
-Password <br>
-Deposit <br>
-Withdraw <br>
-Transfer
+# Banco
+Neste projeto de estudo eu fiz algo parecido com um caixa 24H <br>
+<br>
+Temos: <br>
+Clientes <br>
+Conta bancaria <br>
+Autenticação de senha <br>
+Deposito <br>
+Saque <br>
+Transferencia
+
